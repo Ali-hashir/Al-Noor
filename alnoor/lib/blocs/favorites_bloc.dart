@@ -27,6 +27,12 @@ class DeleteFavourites extends FavouritesEvent {
   DeleteFavourites({required this.id});
 }
 
+class DeleteUpload extends FavouritesEvent {
+  final String id;
+
+  DeleteUpload({required this.id});
+}
+
 class UploadImage extends FavouritesEvent {
   final File imageFile;
   final String collectionName;
@@ -81,6 +87,7 @@ class FavouriteBloc extends Bloc<FavouritesEvent, FavouriteState> {
     on<AddFavourites>(_onAddFavourites);
     on<UploadImage>(_onUploadImage);
     on<DeleteFavourites>(_onDeleteFavourites);
+    on<DeleteUpload>(_onDeleteUpload);
   }
 
   Future<void> _onLoadFavourites(
@@ -129,6 +136,17 @@ class FavouriteBloc extends Bloc<FavouritesEvent, FavouriteState> {
       // emit(FavouriteLoaded(favourites));
     } catch (e) {
       emit(FavouriteError('Failed to delete favourite'));
+    }
+  }
+
+  Future<void> _onDeleteUpload(
+      DeleteUpload event, Emitter<FavouriteState> emit) async {
+    try {
+      await repository.deleteUpload(event.id);
+      // final favourites = await repository.fetchFavourites("");
+      // emit(FavouriteLoaded(favourites));
+    } catch (e) {
+      emit(FavouriteError('Failed to delete upload'));
     }
   }
 }

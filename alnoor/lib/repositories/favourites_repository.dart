@@ -131,4 +131,17 @@ class FavouritesRepository {
       throw Exception('Failed to delete favourite');
     }
   }
+
+  Future<void> deleteUpload(String id) async {
+    var response = await http.post(
+      Uri.parse('https://alnoormdf.com/alnoor/delete-image/${id}'),
+      headers: {
+        'Authorization': 'Bearer ${globals.token}',
+      },
+    ).timeout(Duration(seconds: 60));
+    if (response.statusCode == 200) {
+    } else {
+      throw Exception('Failed to delete uploaded image');
+    }
+  }
 }

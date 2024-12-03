@@ -2,6 +2,7 @@
 
 import 'package:alnoor/blocs/favorites_bloc.dart';
 import 'package:alnoor/classes/image_manager.dart';
+import 'package:alnoor/models/product.dart';
 import 'package:alnoor/widgets/Add_To_Compare_Row.dart';
 import 'package:alnoor/widgets/Product_Grid.dart';
 import 'package:flutter/material.dart';
@@ -201,6 +202,7 @@ class _UploadsState extends State<Uploads> {
 
   Widget _buildMainContent(
       double screenWidth, double screenHeight, BuildContext context) {
+    List<Product> prods = [];
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
       child: Stack(
@@ -232,6 +234,7 @@ class _UploadsState extends State<Uploads> {
                         } else if (state is FavouriteError) {
                           return Center(child: Text(state.message));
                         } else if (state is FavouriteLoaded) {
+                          prods = state.favourites[3];
                           if (state.favourites[filterIndex].length == 0) {
                             return Center(
                                 child: Text("No Items In This Collection "));
@@ -243,14 +246,7 @@ class _UploadsState extends State<Uploads> {
                                 _draggingIndexNotifier.value = value,
                             isGuestUser: widget.isGuestUser,
                             isFavourites: true,
-                            isUpload: true,
-                            products: filterIndex == 0
-                                ? state.favourites[0]
-                                : filterIndex == 1
-                                    ? state.favourites[1]
-                                    : filterIndex == 2
-                                        ? state.favourites[2]
-                                        : state.favourites[3],
+                            products: prods,
                           );
                         } else {
                           return SizedBox.shrink();
@@ -262,9 +258,50 @@ class _UploadsState extends State<Uploads> {
               ),
             ),
           ]),
+          ValueListenableBuilder<bool>(
+            valueListenable: _isDraggingNotifier,
+            builder: (context, isDragging, child) {
+              return isDragging
+                  ? Align(
+                      alignment: Alignment.bottomCenter,
+                      child: DragTarget<Product>(
+                        onWillAccept: (data) => true,
+                        onAccept: (product) {
+                          setState(() {
+                            prods.removeAt(_draggingIndexNotifier.value ?? 0);
+                          });
+                          _isDraggingNotifier.value = false;
+                          _draggingIndexNotifier.value = null;
+                          _deleteUpload(product);
+                        },
+                        builder: (context, candidateData, rejectedData) {
+                          return Container(
+                            margin: const EdgeInsets.only(bottom: 40.0),
+                            padding: const EdgeInsets.all(16.0),
+                            decoration: BoxDecoration(
+                              color: Colors.black,
+                              borderRadius: BorderRadius.circular(40.0),
+                            ),
+                            child: Icon(
+                              Icons.delete,
+                              color: Colors.white,
+                              size: 24.0,
+                            ),
+                          );
+                        },
+                      ),
+                    )
+                  : SizedBox.shrink();
+            },
+          ),
         ],
       ),
     );
+  }
+
+  void _deleteUpload(Product product) {
+    final favouritesBloc = BlocProvider.of<FavouriteBloc>(context);
+    favouritesBloc.add(DeleteUpload(id: product.productId));
   }
 
   void _toggleMenu() {
