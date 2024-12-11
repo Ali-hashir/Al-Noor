@@ -1,4 +1,5 @@
 import 'package:alnoor/classes/image_manager.dart';
+import 'package:alnoor/screens/Home/home.dart';
 import 'package:alnoor/widgets/Image_Skeleton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -139,7 +140,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                 padding: EdgeInsets.only(
                                     left: 0,
                                     right: screenWidth * 0.02,
-                                    top: constraints.maxHeight * 0.03,
+                                    top: constraints.maxHeight * 0.02,
                                     bottom: constraints.maxHeight * 0.03),
                                 child: Row(
                                   mainAxisAlignment:
@@ -148,11 +149,16 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                     IconButton(
                                       icon: SvgPicture.asset(
                                         'assets/images/Logo_Black.svg',
-                                        width: 47,
-                                        height: 47,
+                                        width: 67,
+                                        height: 67,
                                       ),
                                       onPressed: () {
-                                        Navigator.pop(context);
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  HomeScreen()),
+                                        );
                                       },
                                     ),
                                     if (!isGuestUser) // Show the menu icon only if not a guest user
@@ -165,8 +171,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                                 isVisible
                                                     ? 'assets/images/menu_white.svg'
                                                     : 'assets/images/menu.svg',
-                                                width: screenWidth * 0.065,
-                                                height: screenWidth * 0.065,
+                                                width: screenWidth * 0.085,
+                                                height: screenWidth * 0.085,
                                               ),
                                               onPressed: () {
                                                 _isMenuVisibleNotifier.value =

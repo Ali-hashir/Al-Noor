@@ -1,3 +1,4 @@
+import 'package:alnoor/screens/Home/home.dart';
 import 'package:alnoor/widgets/contact_card.dart';
 import 'package:alnoor/widgets/menu.dart';
 import 'package:flutter/material.dart';
@@ -52,10 +53,8 @@ class _DealersPageState extends State<DealersPage> {
                 children: [
                   Positioned.fill(
                     child: Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 16.0,
-                        vertical: 16.0,
-                      ),
+                      padding: EdgeInsets.only(
+                          left: 0, right: 16.0, top: 0, bottom: 16.0),
                       child: Column(
                         children: [
                           Row(
@@ -64,11 +63,15 @@ class _DealersPageState extends State<DealersPage> {
                               IconButton(
                                 icon: SvgPicture.asset(
                                   'assets/images/Logo_Black.svg',
-                                  width: 47,
-                                  height: 47,
+                                  width: 67,
+                                  height: 67,
                                 ),
                                 onPressed: () {
-                                  Navigator.pop(context);
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => HomeScreen()),
+                                  );
                                 },
                               ),
                               if (!widget.isGuestUser)
@@ -80,8 +83,8 @@ class _DealersPageState extends State<DealersPage> {
                                           isVisible
                                               ? 'assets/images/menu_white.svg'
                                               : 'assets/images/menu.svg',
-                                          width: screenWidth * 0.065,
-                                          height: screenWidth * 0.065,
+                                          width: screenWidth * 0.085,
+                                          height: screenWidth * 0.085,
                                         ),
                                         onPressed: _toggleMenu,
                                       );

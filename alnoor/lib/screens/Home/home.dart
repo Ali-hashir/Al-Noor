@@ -779,16 +779,19 @@ class _HomeScreenState extends State<HomeScreen>
                   0.125, // Adjust toolbar height based on screen width
               elevation: 0,
               backgroundColor: Colors.transparent,
-              leading: GestureDetector(
-                onTap: () {},
-                child: Padding(
-                  padding: EdgeInsets.only(left: screenSize.width * 0.03),
-                  child: SvgPicture.asset(
-                    'assets/images/Logo_Black.svg',
-                    width: screenSize.width * 0.14, // Responsive logo size
-                    height: screenSize.width * 0.14, // Responsive logo size
-                    fit: BoxFit
-                        .contain, // Ensures the logo scales proportionally
+              leading: Transform.scale(
+                scale: 1.8,
+                child: GestureDetector(
+                  onTap: () {},
+                  child: Padding(
+                    padding: EdgeInsets.only(left: screenSize.width * 0.04),
+                    child: SvgPicture.asset(
+                      'assets/images/Logo_Black.svg',
+                      width: screenSize.width * 0.14, // Responsive logo size
+                      height: screenSize.width * 0.14, // Responsive logo size
+                      fit: BoxFit
+                          .contain, // Ensures the logo scales proportionally
+                    ),
                   ),
                 ),
               ),
@@ -805,8 +808,8 @@ class _HomeScreenState extends State<HomeScreen>
                                   ? 'assets/images/menu_white.svg'
                                   : 'assets/images/menu.svg',
                               width: screenSize.width *
-                                  0.065, // Responsive menu icon size
-                              height: screenSize.width * 0.065,
+                                  0.085, // Responsive menu icon size
+                              height: screenSize.width * 0.085,
                             ),
                             onPressed: () {
                               _isMenuVisibleNotifier.value =

@@ -109,8 +109,8 @@ class _AboutUsPageState extends State<AboutUsPage> {
                       IconButton(
                         icon: SvgPicture.asset(
                           'assets/images/Logo_Black.svg',
-                          width: 47,
-                          height: 47,
+                          width: 67,
+                          height: 67,
                         ),
                         onPressed: () {
                           Navigator.pop(context);
@@ -125,8 +125,8 @@ class _AboutUsPageState extends State<AboutUsPage> {
                                   isVisible
                                       ? 'assets/images/menu_white.svg'
                                       : 'assets/images/menu.svg',
-                                  width: screenWidth * 0.065,
-                                  height: screenWidth * 0.065,
+                                  width: screenWidth * 0.085,
+                                  height: screenWidth * 0.085,
                                 ),
                                 onPressed: () {
                                   _isMenuVisibleNotifier.value =

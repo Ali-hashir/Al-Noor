@@ -2,6 +2,7 @@
 
 import 'package:alnoor/blocs/moodboard_bloc.dart';
 import 'package:alnoor/models/moodboard.dart';
+import 'package:alnoor/screens/Home/home.dart';
 import 'package:alnoor/widgets/Four_Image_Display.dart';
 import 'package:alnoor/widgets/Two_Image_Display.dart';
 import 'package:flutter/material.dart';
@@ -91,17 +92,25 @@ class _MoodboardsState extends State<Moodboards> {
           toolbarHeight: screenWidth * 0.125,
           elevation: 0,
           backgroundColor: Colors.transparent,
-          leading: GestureDetector(
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: Padding(
-                padding: EdgeInsets.only(left: screenWidth * 0.03),
+          leading: Transform.scale(
+            scale: 1.8,
+            child: GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => HomeScreen()),
+                );
+              },
+              child: Padding(
+                padding: EdgeInsets.only(left: screenWidth * 0.04),
                 child: SvgPicture.asset(
                   'assets/images/Logo_Black.svg',
-                  width: screenWidth * 0.14,
-                  height: screenWidth * 0.14,
-                )),
+                  width: screenWidth * 0.14, // Responsive logo size
+                  height: screenWidth * 0.14, // Responsive logo size
+                  fit: BoxFit.contain, // Ensures the logo scales proportionally
+                ),
+              ),
+            ),
           ),
           actions: [
             if (!widget
@@ -117,8 +126,8 @@ class _MoodboardsState extends State<Moodboards> {
                           isVisible
                               ? 'assets/images/menu_white.svg'
                               : 'assets/images/menu.svg',
-                          width: screenWidth * 0.065,
-                          height: screenWidth * 0.065,
+                          width: screenWidth * 0.085,
+                          height: screenWidth * 0.085,
                         ),
                         onPressed: () {
                           _isMenuVisibleNotifier.value =
